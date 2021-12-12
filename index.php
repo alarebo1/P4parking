@@ -1,73 +1,3 @@
-<?php
-$server = "127.0.0.1";
-$username ="root";
-$password = "Project4*";
-$database = "mydb";
-$port = "3306";
-$conn = new mysqli($server,$username,$password,$database,$port);
-
-// Check connection
-if ($conn -> connect_errno) {
-  echo "Failed to connect to MySQL: " . $conn -> connect_error;
-  exit();
-}
-// sql to create table
-$sql = "CREATE TABLE IF NOT EXISTS Customer (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    cname VARCHAR(30) NOT NULL,
-    licensePlate VARCHAR(30) NOT NULL,
-    parkslot VARCHAR(50),
-    price Int(10),
-    enter_date VARCHAR(258) NOT NULL,
-    exit_date VARCHAR(258) NOT NULL
-    )";
-    
-    if ($conn->query($sql) === TRUE) {
-      echo "Table Customer created successfully";
-    } else {
-      echo "Error creating table: " . $conn->error;
-    }
-    
-    $conn->close();
-?>
-<?php
-// database connection code
-// $con = mysqli_connect('localhost', 'database_user', 'database_password','database');
-
-$server = "127.0.0.1";
-$username ="root";
-$password = "Project4*";
-$database = "mydb";
-$port = "3306";
-$conn = new mysqli($server,$username,$password,$database,$port);
-if ($conn->connect_error) 
-{
-	die("Connection failed: " . $conn->connect_error);
-}
-if(isset($_POST['addcar']))
-{
-	
-	// get the post records
-	$cnames = $_POST['Customer'];
-	$pslot = $_POST['parkslots'];
-	$lplate = $_POST['licensePlate'];
-	$entday = $_POST['entryDate'];
-	$extday = $_POST['exitDate'];
-
-	// database insert SQL code{
-	$sql = "INSERT INTO `Customer` (`cname`, `licensePlate`, `parkslot`, `price`,`enter_date`,`exit_date`) 
-	VALUES ('$cname', '$lplate', '$pslot', 0.5, '$entday', '$extday')";
-	// insert in database 
-	if ($conn->query($sql) === TRUE) {
-		echo "New record created successfully";
-	  } 
-	else 
-	{
-			echo "Error: " . $sql . "<br>" . $conn->error;
-	}
-}
-$conn->close()
-?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -104,7 +34,7 @@ $conn->close()
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             <div class="form-container mt-5">
-                    <form action="connection.php" method="POST" class="w-50 mx-auto" id="entryForm">
+                    <form class="w-50 mx-auto" id="entryForm">
                         <h5 class="text-center">Add Car to Parking Lot</h5>
                         <div class="form-group">
                             <label for="Customer">Name:</label>
